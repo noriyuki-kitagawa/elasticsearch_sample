@@ -3,13 +3,16 @@
     <%= text_field_tag :query, @query, placeholder: "ユーザーを検索する" %>
   </div>
   <div class="control">
-    <%= submit_tag "検索", class: "button is-info" %>
+    <%= submit_tag "検索" %>
   </div>
 <% end %>
 <div>
 <% @users.each do |user| %>
   <div>
     <%= user.name %>
+    <%= form_tag(user_goods_path(user.id), method: :post) do %>
+      <%= submit_tag "👍" %>
+    <% end %>
   </div>
 <% end %>
 </div>
