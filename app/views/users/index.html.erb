@@ -1,0 +1,15 @@
+<%= form_tag(users_path, method: :get) do %>
+  <div class="control">
+    <%= text_field_tag :query, @query, placeholder: "ユーザーを検索する" %>
+  </div>
+  <div class="control">
+    <%= submit_tag "検索", class: "button is-info" %>
+  </div>
+<% end %>
+<div>
+<% @users.each do |user| %>
+  <div>
+    <%= user.name %>
+  </div>
+<% end %>
+</div>

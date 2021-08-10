@@ -1,6 +1,9 @@
 class User < ApplicationRecord
   include Elasticsearch::Model
-  index_name "user"
+  index_name 'user'
+
+  extend ActiveHash::Associations::ActiveRecordExtensions
+  belongs_to_active_hash :character
 
   enum sex: {
     man: 1,
@@ -14,6 +17,8 @@ class User < ApplicationRecord
       indexes :name, type: 'text', analyzer: 'kuromoji'
       indexes :sex, type: 'keyword'
       indexes :account_id, type: 'keyword'
+      indexes :character_id, type: 'integer'
+      indexes :description, type: 'text', analyzer: 'kuromoji'
     end
   end
 
@@ -25,5 +30,18 @@ class User < ApplicationRecord
         settings: self.settings.to_hash,
         mappings: self.mappings.to_hash
       })
+  end
+
+  def search(query)
+    elasticsearch__.search({
+      query: {
+        multi_match: {
+          fields: %w(name sex account_id character_id description),
+          type: 'cross_fields',
+          query: query,
+          operator: 'and'
+        }
+      }
+    })
   end
 end
