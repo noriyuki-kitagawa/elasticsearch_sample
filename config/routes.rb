@@ -4,6 +4,11 @@ Rails.application.routes.draw do
       post :nice
     end
   end
-  resources :admin, only: [:index]
+  resources :admin, only: [:index, :show]
+  namespace :api, format: 'json' do
+    namespace :v1 do
+      resources :admin, only: [:index]
+    end
+  end
   root 'home#index'
 end
