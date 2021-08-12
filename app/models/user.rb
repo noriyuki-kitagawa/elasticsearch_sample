@@ -17,9 +17,20 @@ class User < ApplicationRecord
       indexes :name, type: 'text', analyzer: 'kuromoji'
       indexes :sex, type: 'keyword'
       indexes :account_id, type: 'keyword'
-      indexes :character_id, type: 'integer'
+      indexes :character, type: 'text', analyzer: 'kuromoji'
       indexes :description, type: 'text', analyzer: 'kuromoji'
     end
+  end
+
+  def as_indexed_json(*)
+    attributes
+      .symbolize_keys
+      .slice(:id, :name, :sex, :account_id, :description)
+      .merge(character: character_name)
+  end
+
+  def character_name
+    character.name
   end
 
   def self.create_index!

@@ -10,7 +10,7 @@
 <% @users.each do |user| %>
   <div>
     <%= user.name %>
-    <%= form_tag(user_goods_path(user.id), method: :post) do %>
+    <%= form_tag(nice_user_path(user.id), method: :post) do %>
       <%= submit_tag "👍" %>
     <% end %>
   </div>
