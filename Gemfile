@@ -56,7 +56,7 @@ group :development do
   gem 'spring'
   gem 'pry-rails'
   gem 'pry-byebug'
-  gem 'pry-doc'
+  gem 'factory_bot_rails'
 end
 
 group :test do
@@ -65,6 +65,9 @@ group :test do
   gem 'selenium-webdriver'
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers'
+  gem 'rspec-rails'
+  gem 'cuprite'
+  gem 'rexml'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
